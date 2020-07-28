@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>ATD-Form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-grid>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let app of applicants">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{app.iname}}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{app.nic}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>NIC : <strong>{{app.nic}}</strong></p>
+          <p>Full Name : <strong>{{app.fname}}</strong></p>
+          <p>Name With Initials : <strong>{{app.iname}}</strong></p>
+          <p>Address Line 1 : <strong>{{app.adl1}}</strong></p>
+          <p>Address Line 2 : <strong>{{app.adl2}}</strong></p>
+          <p>Address Line 3 : <strong>{{app.adl3}}</strong></p>
+          <p>Mobile : <strong>{{app.mobile}}</strong></p>
+          <p>T.P. No : <strong>{{app.tp}}</strong></p>
+          <p>සම්පුර්ණ නම : <strong>{{app.sfname}}</strong></p>
+          <p>මුලකුරු සමග නම : <strong>{{app.siname}}</strong></p>
+          <ion-button (click)="selectByArray(applicants.indexOf(app))">Edit</ion-button>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+    </ion-grid>
+  </ion-row>
+  <ion-row>
+    <ion-grid>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Applicant Information</ion-card-title>
+        </ion-card-header>
+        <ion-list>
+          <ion-item>
+            <ion-label position=" floating">NIC</ion-label>
+            <ion-input [(ngModel)]="nic" required minlength="3"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Full Name</ion-label>
+            <ion-input [(ngModel)]="fname" required minlength="3"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Name With Initials</ion-label>
+            <ion-input [(ngModel)]="iname" required minlength="3"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Persional Address Line 1</ion-label>
+            <ion-input [(ngModel)]="adl1" required minlength="3"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Persional Address Line 2</ion-label>
+            <ion-input [(ngModel)]="adl2" required minlength="3"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Persional Address Line 3</ion-label>
+            <ion-input [(ngModel)]="adl3" required minlength="3"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Mobile</ion-label>
+            <ion-input [(ngModel)]="mobile" required minlength="10" maxlength="10"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">T.P. No.</ion-label>
+            <ion-input [(ngModel)]="tp" required minlength="10" maxlength="10"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">සම්පූර්ණ නම සිංහලෙන්</ion-label>
+            <ion-input [(ngModel)]="sfname" required minlength="3"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">මුලකුරු සමග නම සිංහලෙන්</ion-label>
+            <ion-input [(ngModel)]="siname" required minlength="3"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="saveApplicant()" disabled="{{inValid}}" color="success" expand="full">Save
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="clearData()" color="warning" expand="full">Clear</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="deleteSelected()" color="danger" expand="full">Delete</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-footer>
+        <ion-button expand="full" (click)="goToUpload()">Upload Document</ion-button>
+      </ion-footer>
+    </ion-grid>
+  </ion-row>
+</ion-content>

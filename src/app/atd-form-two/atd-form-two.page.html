@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>ATD Document Info</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-grid>
+      <ion-card>
+        <ion-card-header></ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item>
+              <ion-label>ඔප්පුවේ අංකය :</ion-label>
+              <ion-input [(ngModel)]="oppuNo"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>ඔප්පුවේ ස්වභාවය :</ion-label>
+              <ion-input [(ngModel)]="oppuNature"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>පත්තිරු අංකය :</ion-label>
+              <ion-input [(ngModel)]="pathtiruNo"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>නොතාරිස් ගේ නම :</ion-label>
+              <ion-input [(ngModel)]="notharisName"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>පිඹුරේ අංකය :</ion-label>
+              <ion-input [(ngModel)]="pimburaNo"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>මිනින්දෝරු නම අක්කර :</ion-label>
+              <ion-input [(ngModel)]="minindoruName"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>ඉඩමේ ප්‍රමාණය අක්කර :</ion-label>
+              <ion-input [(ngModel)]="landAcres"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>ඉඩමේ ප්‍රමාණය රූඩ් :</ion-label>
+              <ion-input [(ngModel)]="landRudd"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>ඉඩමේ ප්‍රමාණය පර්චස් :</ion-label>
+              <ion-input [(ngModel)]="landParch"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>කැබලි අංකය / Lot No :</ion-label>
+              <ion-input [(ngModel)]="landLotno"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>ඉඩමේ වටිනාකම :</ion-label>
+              <ion-input [(ngModel)]="landValue"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>ඉඩමේ පිහිටීම :</ion-label>
+              <ion-select placeholder="දි්‍ශාව තෝරන්න" [(ngModel)]="selectedSide">
+                <ion-select-option *ngFor="let loc of locations" [value]="loc">{{loc.sinhala}}</ion-select-option>
+              </ion-select>
+              <ion-input [(ngModel)]="sideData"></ion-input>
+              <ion-button *ngIf="selectedSide && sideData" (click)="setLocation()">Set</ion-button>
+            </ion-item>
+            <ion-item *ngFor="let d of locationData">
+              <ion-label>{{d.side.sinhala}}</ion-label>
+              {{d.data}}
+              <ion-button (click)="remove(d)" color="danger">remove</ion-button>
+            </ion-item>
+
+            <ion-item>
+              <ion-label> ලියූ දිනය :</ion-label>
+              <ion-input required maxlength="4" minlength="4" [(ngModel)]="year" placeholder="Year"></ion-input>
+              <ion-input required maxlength="2" minlength="2" [(ngModel)]="month" placeholder="Month"></ion-input>
+              <ion-input required maxlength="2" minlength="2" [(ngModel)]="date" placeholder="Date"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>ඉඩමේ විස්තරය :</ion-label>
+              <ion-select [(ngModel)]="landDescription">
+                <ion-select-option *ngFor="let des of landDescriptionArray" [value]="des">{{des.des}}</ion-select-option>
+                <ion-select-option [value]="1">නොබෙදූ ඉඩමක්</ion-select-option>
+                <ion-select-option [value]="1">වෙනත්</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          </ion-list>
+
+          <ion-button expand="full" (click)="save()">
+            Save Data
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-grid>
+  </ion-row>
+</ion-content>

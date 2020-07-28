@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>imageview</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-row>
+    <ion-slides [options]="sliderConfig" pager="true">
+      <ion-slides>
+        <div class="swiper-zoom-container">
+          <img [src]="image.img">
+        </div>
+      </ion-slides>
+    </ion-slides>
+  </ion-row> -->
+  <ion-row>
+    <ion-grid>
+      <ion-slides [options]="sliderConfig">
+        <ion-slide>
+          <div class="swiper-zoom-container">
+            <img [src]="image.img">
+            <!-- <ion-button>Full Screen</ion-button> -->
+          </div>
+
+        </ion-slide>
+      </ion-slides>
+    </ion-grid>
+  </ion-row>
+</ion-content>

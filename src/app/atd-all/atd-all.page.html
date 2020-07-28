@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>ATD Application List</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row>
+    <ion-grid>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            Filter Atd Form
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label>Search</ion-label>
+            <ion-input></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Pending Completed</ion-label>
+            <ion-toggle color="primary"></ion-toggle>
+          </ion-item>
+        </ion-card-content>
+
+      </ion-card>
+    </ion-grid>
+  </ion-row>
+
+  <ion-row>
+    <ion-grid>
+      <ion-card *ngFor="let atd of atdList">
+        <ion-card-content>
+          <p>{{atd.initname}}</p>
+          <p>{{atd.ward_name}}, {{atd.street_name}}, <strong>{{atd.assessment_no}}</strong></p>
+          <ion-item lines="none">
+            <ion-button slot="end" shape="round" size="small" color="medium" (click)="loadAtdData(atd)">info
+            </ion-button>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-grid>
+  </ion-row>
+
+
+</ion-content>

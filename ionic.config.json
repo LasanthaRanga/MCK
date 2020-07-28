@@ -1,0 +1,8 @@
+{
+  "name": "MCK",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="cc">
+    <div class="helper">
+      <ion-card class="col-md-4 offset-md-4">
+        <ion-card-content>
+          <ion-list>
+            <ion-item>
+              <label>User Name :</label>
+              <ion-input [(ngModel)]="uname"></ion-input>
+            </ion-item>
+            <ion-item>
+              <label>Password :</label>
+              <ion-input type="password" [(ngModel)]="pword"></ion-input>
+            </ion-item>
+            <ion-button expand="full" (click)="login()">Login</ion-button>
+            <ion-button expand="full" (click)="getAll()">token test</ion-button>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

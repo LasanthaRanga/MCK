@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Upload Documents</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="spin" *ngIf="isLoading">
+    <ion-spinner color="tertiary"></ion-spinner>
+  </div>
+  <ion-row>
+    <ion-grid>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title> Uplad Document </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item>
+              <ion-label>Document Type</ion-label>
+              <ion-select [(ngModel)]="dockType" (ngModelChange)="changeDockType()">
+                <ion-select-option *ngFor="let dock of needDock" [value]="dock">{{dock.Doccat_name}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <input style="display: none;" type="file" (change)="fileChangeEvent($event)" #fileInput />
+              <ion-button (click)="fileInput.click()">
+                <ion-icon name="folder-outline">
+                  <ion-icon name="folder-outline"></ion-icon> Select Image
+                </ion-icon> Select Image
+              </ion-button>
+
+            </ion-item>
+          </ion-list>
+          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [aspectRatio]="4 / 3"
+            [resizeToWidth]="768" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+            (loadImageFailed)="loadImageFailed()">
+          </image-cropper>
+          <ion-row *ngIf="imageChangedEvent && !isLoading">
+            <ion-col>
+              <ion-button color="light" expand="full" (click)="rotateLeft()">
+                <ion-icon name="arrow-undo-circle"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="light" expand="full" (click)="rotateRight()">
+                <ion-icon name="arrow-redo-circle"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="light" expand="full" (click)="flipHorizontal()">
+                <ion-icon name="code"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="light" expand="full" (click)="flipVertical()">
+                <ion-icon name="code-download"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-progress-bar *ngIf="isLoading" [value]="upProgrus"></ion-progress-bar>
+          <ion-button *ngIf="croppedImage && !isLoading" (click)="upload()" expand="full">
+            <ion-icon name="cloud-upload"></ion-icon> upload
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-grid>
+  </ion-row>
+
+  
+  <!-- <ion-row *ngIf="uploadedList">
+    <ion-grid>
+      <ion-card>
+        <ion-card-content>
+          <p *ngFor="let image of uploadedList">{{image.realpath}}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-grid>
+  </ion-row> -->
+
+  <!-- <ion-row>
+    <ion-grid>
+      <ion-card>
+        <ion-card-content>
+          <img *ngFor="let image of imageArray" alt="image.img" [src]="image.img">         
+        </ion-card-content>
+      </ion-card>
+    </ion-grid>
+  </ion-row> -->
+
+
+  <ion-row>
+    <ion-slides [options]="sliderConfig" pager="true">
+      <ion-slide *ngFor="let image of imageArray">
+        <ion-card>
+          <ion-card-content>
+            <img [src]="image.img">
+            <!-- <ion-button>Full Screen</ion-button> -->
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-grid>
+      <ion-button [routerLink]="['/atd-form-two']">
+        DONE
+      </ion-button>
+    </ion-grid>
+  </ion-row>
+</ion-content>
