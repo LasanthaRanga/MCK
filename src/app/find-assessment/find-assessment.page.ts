@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ApicallService } from '../services/apicall.service';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-find-assessment',
   templateUrl: './find-assessment.page.html',
@@ -10,12 +11,17 @@ import { Router } from '@angular/router';
 export class FindAssessmentPage implements OnInit {
 
   apiurl = environment.apiUrl + 'ass/';
-  constructor(private apiCall: ApicallService, private router: Router) { }
+  atdurl = environment.apiUrl + 'atd/';
+  constructor(private apiCall: ApicallService, private router: Router, private stor: Storage) { }
   idAssess;
   hasAssessData = false;
   isLoading = false;
   selectedAssessment = null;
   selectedBalance = null;
+
+  assSelectedListToATD = [];
+
+
   ngOnInit() {
   }
 
@@ -40,7 +46,21 @@ export class FindAssessmentPage implements OnInit {
   }
 
   goToAtd() {
-    this.router.navigate(['/atd-form', this.idAssess]);
+    this.assSelectedListToATD.push(this.selectedAssessment);
+    // this.router.navigate(['/atd-form', this.idAssess]);
+    console.log(this.assSelectedListToATD);
+  }
+
+  startAtdApplications() {
+    this.apiCall.call(this.atdurl + 'startAtdMain', { array: this.assSelectedListToATD }, data => {
+      console.log(data);
+      this.stor.set('atdmain', data.idatdmain).then(result => {
+        console.log(result);
+        this.router.navigate(['/atd-form', data.idatdmain]);
+      });
+    });
+
+
   }
 
 }

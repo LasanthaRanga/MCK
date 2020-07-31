@@ -7,7 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { IonicToastService } from '../services/ionic-toast.service';
-
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-atd-info',
   templateUrl: './atd-info.page.html',
@@ -22,7 +22,7 @@ export class AtdInfoPage implements OnInit {
   assessment;
   newCustomers;
   isLoading = false;
-
+  user;
   year; month; date;
   full;
   arly;
@@ -40,7 +40,7 @@ export class AtdInfoPage implements OnInit {
 
   uploadedList = [];
   imageArray = [];
-
+  sides = [];
   sliderConfig = {
     spaceBetween: 5,
     centeredSlides: true,
@@ -61,6 +61,7 @@ export class AtdInfoPage implements OnInit {
     private router: Router,
     private dataService: DataService,
     private tost: IonicToastService,
+    private stor: Storage,
   ) { }
 
   ngOnInit() {
@@ -69,6 +70,13 @@ export class AtdInfoPage implements OnInit {
     this.loadNewCustomers();
     this.loadWardCombo();
     this.getUploadList();
+    this.getSide();
+    this.stor.get('user').then(result => {
+      this.user = result;
+      console.log(this.user);
+    });
+
+
   }
 
   loadAtd() {
@@ -139,6 +147,12 @@ export class AtdInfoPage implements OnInit {
     });
   }
 
+  getSide() {
+    this.apiCall.call(this.atdurl + 'getSide', { atdid: this.atdid }, data => {
+      this.sides = data;
+    });
+  }
+
   clickOnimage(image) {
     console.log(image);
     this.dataService.setData('image', image);
@@ -158,7 +172,7 @@ export class AtdInfoPage implements OnInit {
                     full: this.full,
                     arly: this.arly,
                     date: day,
-                    uid: 0,
+                    uid: this.user.uid,
                     atdid: this.atdid,
                     des: this.assDes,
                     assess: this.assessmentAdded

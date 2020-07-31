@@ -40,7 +40,7 @@ export class AtdFormTwoPage implements OnInit {
   atdStatusInt;
   startDateTime;
   userId1;
-
+  user;
   locationData = [];
   locations;
   selectedSide;
@@ -63,6 +63,13 @@ export class AtdFormTwoPage implements OnInit {
     // this.atdid = this.dataService.getData('atdid');
     this.stor.get('atdid').then(result => { this.atdid = result; console.log(this.atdid); });
     this.getLocationArray();
+
+    this.stor.get('user').then(result => {
+      this.user = result;
+      console.log(this.user);
+    });
+
+
   }
 
   getLocationArray() {
@@ -119,7 +126,7 @@ export class AtdFormTwoPage implements OnInit {
                                   const obj = {
                                     atdid: this.atdid,
                                     oppuNo: this.oppuNo,
-                                    pathtiruNo: this.pathtiruNo,
+                                    paththiruNo: this.pathtiruNo,
                                     oppuNature: this.oppuNature,
                                     notharisName: this.notharisName,
                                     pimburaNo: this.pimburaNo,
@@ -135,7 +142,7 @@ export class AtdFormTwoPage implements OnInit {
                                     atdStatus: 'Application Data Complete',
                                     atdStatusInt: 1,
                                     startDateTime: '',
-                                    userId1: '00',
+                                    userId1: this.user.uid,
                                     locationData: this.locationData
                                   };
                                   this.apiCall.call(this.atdurl + 'saveData', obj, data => {

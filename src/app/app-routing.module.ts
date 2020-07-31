@@ -42,6 +42,18 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'atd-cri/:atdid',
+    loadChildren: () => import('./atd-cri/atd-cri.module').then( m => m.AtdCriPageModule)
+  },
+  {
+    path: 'logout',
+    loadChildren: () => import('./logout/logout.module').then( m => m.LogoutPageModule)
+  },
+  {
+    path: 'atd-print',
+    loadChildren: () => import('./atd-print/atd-print.module').then( m => m.AtdPrintPageModule)
   }
 ];
 

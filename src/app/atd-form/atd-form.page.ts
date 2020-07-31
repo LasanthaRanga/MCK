@@ -121,19 +121,17 @@ export class AtdFormPage implements OnInit {
   }
 
   goToUpload() {
+
     const param = {
       idAssess: this.idAssessment,
       customer: this.applicants
     };
-
     this.apiCall.call(this.atdurl + 'startAtd', param, data => {
       console.log(data.atdid);
       this.stor.set('atdid', data.atdid).then(result => {
         console.log(result);
+        this.router.navigate(['/atd-upload']);
       });
-
-      this.router.navigate(['/atd-upload']);
-
     });
   }
 }

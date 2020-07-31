@@ -12,11 +12,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
-    {
-      title: 'Inbox',
-      url: '/folder/Inbox',
-      icon: 'mail'
-    },
+    // {
+    //   title: 'Inbox',
+    //   url: '/folder/Inbox',
+    //   icon: 'mail'
+    // },
     // {
     //   title: 'Outbox',
     //   url: '/folder/Outbox',
@@ -37,25 +37,35 @@ export class AppComponent implements OnInit {
     //   url: '/folder/Trash',
     //   icon: 'trash'
     // },
-    {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
-    },
+    // {
+    //   title: 'Spam',
+    //   url: '/folder/Spam',
+    //   icon: 'warning'
+    // },
     {
       title: 'Find Assessment',
       url: '/find-assessment',
-      icon: 'warning'
+      icon: 'search'
     },
     {
       title: 'ATD Application List',
       url: '/atd-all',
-      icon: 'warning'
+      icon: 'list'
     },
     {
       title: 'Login',
       url: '/login',
-      icon: 'warning'
+      icon: 'lock-open'
+    },
+    {
+      title: 'Logout',
+      url: '/logout',
+      icon: 'lock-closed'
+    },
+    {
+      title: 'Print',
+      url: '/atd-print',
+      icon: 'lock-closed'
     }
   ];
   public labels = [

@@ -33,6 +33,10 @@
       </ion-card-content>
     </ion-card>
   </ion-col>
+
+
+
+
   <ion-col>
     <ion-card *ngIf="hasAssessData">
       <ion-card-header>
@@ -95,4 +99,31 @@
       </ion-card-content>
     </ion-card>
   </ion-col>
+
+
+  <ion-row>
+    <ion-grid>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let app of assSelectedListToATD">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{app.cus_name}}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{app.assessment_no}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>Ward : <strong>{{app.ward_name}}</strong></p>
+          <p>street_name : <strong>{{app.street_name}}</strong></p>
+          <p>Assessment No : <strong>{{app.assessment_no}}</strong></p>
+
+          <!-- <ion-button (click)="selectByArray(applicants.indexOf(app))">Edit</ion-button> -->
+        </mat-expansion-panel>
+      </mat-accordion>
+      <ion-button (click)="startAtdApplications()" expand="full" *ngIf="assSelectedListToATD.length>0">Start ATD Applications For This Assessments</ion-button>
+    </ion-grid>
+  </ion-row>
+
+
+
 </ion-content>

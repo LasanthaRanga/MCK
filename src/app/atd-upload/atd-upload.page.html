@@ -65,35 +65,13 @@
       </ion-card>
     </ion-grid>
   </ion-row>
-
   
-  <!-- <ion-row *ngIf="uploadedList">
-    <ion-grid>
-      <ion-card>
-        <ion-card-content>
-          <p *ngFor="let image of uploadedList">{{image.realpath}}</p>
-        </ion-card-content>
-      </ion-card>
-    </ion-grid>
-  </ion-row> -->
-
-  <!-- <ion-row>
-    <ion-grid>
-      <ion-card>
-        <ion-card-content>
-          <img *ngFor="let image of imageArray" alt="image.img" [src]="image.img">         
-        </ion-card-content>
-      </ion-card>
-    </ion-grid>
-  </ion-row> -->
-
-
   <ion-row>
     <ion-slides [options]="sliderConfig" pager="true">
       <ion-slide *ngFor="let image of imageArray">
         <ion-card>
           <ion-card-content>
-            <img [src]="image.img">
+            <img [src]="image.img" style="height: 150px;">
             <!-- <ion-button>Full Screen</ion-button> -->
           </ion-card-content>
         </ion-card>
@@ -104,7 +82,7 @@
 
   <ion-row>
     <ion-grid>
-      <ion-button [routerLink]="['/atd-form-two']">
+      <ion-button [routerLink]="['/atd-form-two']" >
         DONE
       </ion-button>
     </ion-grid>

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>ATD Information</ion-title>
+    <ion-title>CRI Approve</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -118,6 +118,15 @@
               <p>{{s.side_info}}</p>
             </ion-item>
 
+            <br>
+            <ion-label>යාබද දේපල :</ion-label>
+
+            <ion-item *ngFor="let ass of niarest">
+              <ion-label>{{ass.assessment_no}} , {{ass.ass_nature_name}} , {{ass.ass_discription}} </ion-label>
+            </ion-item>
+
+
+
           </ion-list>
 
         </ion-card-content>
@@ -138,115 +147,47 @@
     </ion-slides>
   </ion-row>
 
-
   <ion-row>
     <ion-grid>
-      <ion-card>
+      <ion-card *ngFor="let ap of approval">
         <ion-card-header>
-          <ion-card-title>දේපල පිළිබඳ නිරවද්‍යතාව</ion-card-title>
+          <ion-card-title *ngIf="ap.status_int==1" color="success">{{ap.approval_name}} - {{ap.status_string}}
+          </ion-card-title>
+          <ion-card-title *ngIf="ap.status_int==2" color="danger">{{ap.approval_name}} - {{ap.status_string}}
+          </ion-card-title>
+          <ion-card-subtitle>{{ap.user_full_name}}</ion-card-subtitle>
+          <ion-card-subtitle>{{ap.dt | date: 'yyyy-MM-dd  HH:mm' }}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-          <ion-list>
-            <ion-item>
-              <ion-label>කොට්ඨාසය</ion-label>
-              <ion-select [(ngModel)]="selectedWard" (ngModelChange)="loadStreetCombo()">
-                <ion-select-option *ngFor="let w of wardList" [value]="w">{{w.ward_name}}</ion-select-option>
-              </ion-select>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>වීදයි</ion-label>
-              <ion-select [(ngModel)]="selectedStreet">
-                <ion-select-option *ngFor="let s of streetList" [value]="s">{{s.street_name}}</ion-select-option>
-              </ion-select>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>වරිපනම් අංකය</ion-label>
-              <ion-input [(ngModel)]="assno"></ion-input>
-              <ion-button (click)="searchAssessment()">Search</ion-button>
-            </ion-item>
-          </ion-list>
+          {{ap.comment}}
         </ion-card-content>
       </ion-card>
     </ion-grid>
   </ion-row>
 
-  <ion-row>
-    <ion-grid>
-      <ion-card *ngFor="let ass of assessmentArray">
-        <ion-card-content>
-          <p>Customer Name: {{ass.cus_name}}</p>
-          <p>Assessment No: {{ass.assessment_no}}</p>
-          <p>Nature : {{ass.ass_nature_name}}</p>
-          <p>Description : {{ass.ass_discription}}</p>
-          <ion-item lines="none">
-            <ion-button slot="end" (click)="addAssessment(ass)">ADD</ion-button>
-          </ion-item>
-        </ion-card-content>
-      </ion-card>
-    </ion-grid>
-  </ion-row>
+  <div *ngIf="user">
+    <ion-row *ngIf="user && user.appCatName==='CRI' || user.appCatName==='CC' || user.appCatName==='AO'">
+      <ion-grid>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title *ngIf="user && user.appCatName==='CRI'">CRI Approve</ion-card-title>
+            <ion-card-title *ngIf="user && user.appCatName==='CC'">CC Approve</ion-card-title>
+            <ion-card-title *ngIf="user && user.appCatName==='AO'">AO Approve</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+              <ion-item>
+                <ion-label>නිරීක්ෂණය හා නිර්දේ්‍ශය</ion-label>
+                <ion-input [(ngModel)]="comm"></ion-input>
+              </ion-item>
+            </ion-list>
+            <ion-button color="secondary" (click)="approve(1)"> Approve </ion-button>
+            <ion-button color="danger" (click)="approve(2)"> Reject </ion-button>
 
-
-  <ion-row>
-    <ion-grid>
-      <ion-card>
-        <ion-card-content>
-          <ion-item>
-            <ion-label>දෙපල ලියාපදිංචි වන්නේ වරිපනම් අංකයට අනුව සම්පූර්ණ ද? කොටසක්ද?</ion-label>
-            <ion-select [(ngModel)]="full">
-              <ion-select-option [value]="1">සම්පුර්ණ</ion-select-option>
-              <ion-select-option [value]="2">කොටසක්</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label>මෙම දේපල ලියාපදිංචිය සඳහා කලින් ඉල්ලුම් කර තිබේද?</ion-label>
-            <ion-select [(ngModel)]="arly">
-              <ion-select-option [value]="1">ඔවු</ion-select-option>
-              <ion-select-option [value]="2">නැත</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label>පරික්ශාව කල දිනය :</ion-label>
-            <ion-input required maxlength="4" minlength="4" [(ngModel)]="year" placeholder="Year"></ion-input>
-            <ion-input required maxlength="2" minlength="2" [(ngModel)]="month" placeholder="Month"></ion-input>
-            <ion-input required maxlength="2" minlength="2" [(ngModel)]="date" placeholder="Date"></ion-input>
-          </ion-item>
-          <br>
-          <ion-label>යාබද පිහිටි දේපල</ion-label>
-          <ion-list>
-            <ion-item *ngFor="let ass of assessmentAdded">
-              <ion-label>{{ass.assessment_no}} , {{ass.ass_nature_name}} , {{ass.ass_discription}} </ion-label>
-            </ion-item>
-          </ion-list>
-
-          <ion-item>
-            <ion-label>දේපල විස්තරය</ion-label>
-            <ion-input [(ngModel)]="assDes"></ion-input>
-          </ion-item>
-
-          <ion-button expand="full" (click)="saveRiData()">Save Data</ion-button>
-        </ion-card-content>
-      </ion-card>
-    </ion-grid>
-  </ion-row>
-
-
-  <!-- <ion-row>
-    <ion-grid>
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>යාබද පිහිටි දේපල</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-
-        </ion-card-content>
-      </ion-card>
-    </ion-grid>
-  </ion-row> -->
-
-
-
+          </ion-card-content>
+        </ion-card>
+      </ion-grid>
+    </ion-row>
+  </div>
 
 </ion-content>

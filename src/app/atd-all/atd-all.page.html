@@ -14,15 +14,12 @@
         </ion-card-header>
         <ion-card-content>
           <ion-item>
-            <ion-label>Search</ion-label>
-            <ion-input></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Pending Completed</ion-label>
-            <ion-toggle color="primary"></ion-toggle>
+            <ion-label>Filter By</ion-label>
+            <ion-select [(ngModel)]="atdStatus" (ngModelChange)="getAtdList()">
+              <ion-select-option *ngFor="let st of status" [value]="st.status_number">{{st.english}}</ion-select-option>
+            </ion-select>
           </ion-item>
         </ion-card-content>
-
       </ion-card>
     </ion-grid>
   </ion-row>
@@ -34,8 +31,19 @@
           <p>{{atd.initname}}</p>
           <p>{{atd.ward_name}}, {{atd.street_name}}, <strong>{{atd.assessment_no}}</strong></p>
           <ion-item lines="none">
-            <ion-button slot="end" shape="round" size="small" color="medium" (click)="loadAtdData(atd)">info
-            </ion-button>
+            
+            <div *ngIf="user">
+              <ion-button *ngIf="user && user.appCatName==='RI'" slot="end" shape="round" size="small" color="medium"
+                (click)="loadAtdData(atd)">info
+              </ion-button>
+            </div>
+
+            <div *ngIf="user">
+              <ion-button *ngIf="user && user.appCatName==='CRI' || user.appCatName==='CC' || user.appCatName==='AO'"
+                slot="end" shape="round" size="small" color="medium" (click)="loadAtdDataCri(atd)">Approval Info
+              </ion-button>
+            </div>
+
           </ion-item>
         </ion-card-content>
       </ion-card>
